@@ -1,4 +1,4 @@
-package com.virgo.duylt.education.study.smart.ui.theme
+package com.virgo.duylt.education.study.smart.presentation.theme
 
 import android.app.Activity
 import android.os.Build

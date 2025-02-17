@@ -1,4 +1,4 @@
-package com.virgo.duylt.education.study.smart.ui.theme
+package com.virgo.duylt.education.study.smart.presentation.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
