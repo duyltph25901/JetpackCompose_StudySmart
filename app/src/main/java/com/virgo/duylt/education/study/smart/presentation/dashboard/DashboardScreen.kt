@@ -25,6 +25,10 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.saveable.rememberSaveable
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -32,9 +36,12 @@ import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import com.virgo.duylt.education.study.smart.R
+import com.virgo.duylt.education.study.smart.domain.model.Session
 import com.virgo.duylt.education.study.smart.domain.model.Subject
 import com.virgo.duylt.education.study.smart.presentation.components.CountCard
 import com.virgo.duylt.education.study.smart.presentation.components.SubjectCard
+import com.virgo.duylt.education.study.smart.presentation.components.dialog.AddSubjectDialog
+import com.virgo.duylt.education.study.smart.presentation.components.dialog.DeleteDialog
 import com.virgo.duylt.education.study.smart.presentation.components.sessionList
 import com.virgo.duylt.education.study.smart.presentation.components.taskList
 import com.virgo.duylt.education.study.smart.utils.SessionUtils.getDefaultSessions
@@ -43,6 +50,86 @@ import com.virgo.duylt.education.study.smart.utils.TaskUtils.getTasksDefault
 
 @Composable
 fun DashboardScreen() {
+    var isAddSubjectDialogOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    var isDeleteDialogOpen by rememberSaveable {
+        mutableStateOf(false)
+    }
+
+    var subjectName by rememberSaveable {
+        mutableStateOf("")
+    }
+
+    var goalHours by rememberSaveable {
+        mutableStateOf("")
+    }
+
+    var selectedColor by rememberSaveable {
+        mutableStateOf(
+            Subject.subjectCardColor.random()
+        )
+    }
+
+    var sessionDeleteCurrent by rememberSaveable {
+        mutableStateOf<Session?>(null)
+    }
+
+    fun hideDialogAddSubject() {
+        isAddSubjectDialogOpen = false
+    }
+
+    fun showDialogAddSubject() {
+        isAddSubjectDialogOpen = true
+    }
+
+    fun hideDeleteDialog() {
+        isDeleteDialogOpen = false
+    }
+
+    fun showDeleteDialog() {
+        isDeleteDialogOpen = true
+    }
+
+    AddSubjectDialog(
+        isOpen = isAddSubjectDialogOpen,
+        selectedColors = selectedColor,
+        subjectName = subjectName,
+        goalHours = goalHours,
+        maxLengthSubject = 31,
+        maxLengthGoalHours = 4,
+
+        onDismissRequest = {
+            hideDialogAddSubject()
+        },
+        onConfirmClick = {
+            hideDialogAddSubject()
+        },
+        onColorChange = { colors ->
+            selectedColor = colors
+        },
+        onSubjectNameChange = { newValue ->
+            subjectName = newValue
+        },
+        onGoalHoursChange =  { newValue ->
+            goalHours = newValue
+        }
+    )
+
+    DeleteDialog(
+        isOpen = isDeleteDialogOpen,
+        title = "Delete Session?",
+        bodyText = "Are you sure, you want to delete ${sessionDeleteCurrent?.relatedToSubject ?: "this" } session? Your studies hours will be reduced by this session time." +
+                " This action can not be undo.",
+        onDismissRequest = {
+            hideDeleteDialog()
+        },
+        onConfirmButtonClick = {
+            hideDeleteDialog()
+        }
+    )
+
     Scaffold(
         topBar = {
             DashboardScreenTopBar()
@@ -69,13 +156,17 @@ fun DashboardScreen() {
             item {
                 SubjectCardSection(
                     modifier = Modifier.fillMaxWidth(),
-                    subjectList = getSubjectsDefault()
+                    subjectList = getSubjectsDefault(),
+                    onAddIconClick = {
+                        showDialogAddSubject()
+                    }
                 )
             }
 
             item {
                 Button(
-                    modifier = Modifier.fillMaxWidth()
+                    modifier = Modifier
+                        .fillMaxWidth()
                         .padding(
                             horizontal = 48.dp,
                             vertical = 20.dp
@@ -108,7 +199,8 @@ fun DashboardScreen() {
 
                 },
                 onSessionDeleteClick = { session ->
-
+                    sessionDeleteCurrent = session
+                    showDeleteDialog()
                 }
             )
         }
@@ -170,7 +262,8 @@ private fun CountCardSection(
 private fun SubjectCardSection(
     modifier: Modifier = Modifier,
     subjectList: List<Subject> = mutableListOf(),
-    emptyListText: String = "You don't have any subject.\nClick the + button to add new subject."
+    emptyListText: String = "You don't have any subject.\nClick the + button to add new subject.",
+    onAddIconClick: () -> Unit
 ) {
     Column(
         modifier = modifier,
@@ -191,7 +284,7 @@ private fun SubjectCardSection(
 
             IconButton(
                 onClick = {
-
+                    onAddIconClick.invoke()
                 }
             ) {
                 Icon(
@@ -203,11 +296,13 @@ private fun SubjectCardSection(
 
         if (subjectList.isEmpty()) {
             Image(
-                modifier = Modifier.size(
-                    size = 120.dp
-                ).align(
-                    alignment = Alignment.CenterHorizontally
-                ),
+                modifier = Modifier
+                    .size(
+                        size = 120.dp
+                    )
+                    .align(
+                        alignment = Alignment.CenterHorizontally
+                    ),
                 painter = painterResource(R.drawable.img_books),
                 contentDescription = ""
             )

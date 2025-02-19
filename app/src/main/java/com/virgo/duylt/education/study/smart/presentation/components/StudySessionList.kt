@@ -28,6 +28,7 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.virgo.duylt.education.study.smart.R
 import com.virgo.duylt.education.study.smart.domain.model.Session
+import com.virgo.duylt.education.study.smart.utils.Converter.convertDurationToHours
 import com.virgo.duylt.education.study.smart.utils.Converter.convertLongToDate
 
 fun LazyListScope.sessionList(
@@ -140,7 +141,7 @@ fun SessionCard(
             }
 
             Text(
-                text = convertLongToDate(session.date) + "hr"
+                text = convertDurationToHours(session.duration)
             )
 
             IconButton(
