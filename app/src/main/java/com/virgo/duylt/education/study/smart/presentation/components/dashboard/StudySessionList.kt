@@ -1,4 +1,4 @@
-package com.virgo.duylt.education.study.smart.presentation.components
+package com.virgo.duylt.education.study.smart.presentation.components.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -78,7 +78,12 @@ fun LazyListScope.sessionList(
         }
     }
 
-    items(listStudySession) { session ->
+    items(
+        items  = listStudySession,
+        key = { session ->
+            session.sessionId
+        }
+    ) { session ->
         SessionCard(
             modifier = Modifier.fillMaxWidth()
                 .padding(

@@ -1,4 +1,4 @@
-package com.virgo.duylt.education.study.smart.presentation.components
+package com.virgo.duylt.education.study.smart.presentation.components.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -73,7 +73,12 @@ fun LazyListScope.taskList(
         }
     }
 
-    items(listTask) { task ->
+    items(
+        items = listTask,
+        key = { task ->
+            task.taskId
+        }
+    ) { task ->
         TaskCard(
             modifier = Modifier.padding(
                 horizontal = 12.dp,

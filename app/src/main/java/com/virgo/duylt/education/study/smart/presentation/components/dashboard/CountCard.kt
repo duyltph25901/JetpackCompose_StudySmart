@@ -1,4 +1,4 @@
-package com.virgo.duylt.education.study.smart.presentation.components
+package com.virgo.duylt.education.study.smart.presentation.components.dashboard
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -19,7 +19,7 @@ import androidx.compose.ui.unit.sp
 fun CountCard(
     modifier: Modifier = Modifier,
     headingText: String = "Heading text default",
-    count: Int = 0
+    count: Number = 0
 ) {
     ElevatedCard(
         modifier = modifier

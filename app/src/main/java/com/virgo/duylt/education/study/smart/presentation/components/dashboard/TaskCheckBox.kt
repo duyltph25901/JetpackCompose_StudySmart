@@ -1,4 +1,4 @@
-package com.virgo.duylt.education.study.smart.presentation.components
+package com.virgo.duylt.education.study.smart.presentation.components.dashboard
 
 import androidx.compose.animation.AnimatedVisibility
 import androidx.compose.foundation.border

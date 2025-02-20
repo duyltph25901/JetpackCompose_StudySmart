@@ -1,4 +1,4 @@
-package com.virgo.duylt.education.study.smart.presentation.dashboard
+package com.virgo.duylt.education.study.smart.presentation.ui.dashboard
 
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.Arrangement
@@ -38,12 +38,12 @@ import androidx.compose.ui.unit.dp
 import com.virgo.duylt.education.study.smart.R
 import com.virgo.duylt.education.study.smart.domain.model.Session
 import com.virgo.duylt.education.study.smart.domain.model.Subject
-import com.virgo.duylt.education.study.smart.presentation.components.CountCard
-import com.virgo.duylt.education.study.smart.presentation.components.SubjectCard
+import com.virgo.duylt.education.study.smart.presentation.components.dashboard.CountCard
+import com.virgo.duylt.education.study.smart.presentation.components.dashboard.SubjectCard
 import com.virgo.duylt.education.study.smart.presentation.components.dialog.AddSubjectDialog
 import com.virgo.duylt.education.study.smart.presentation.components.dialog.DeleteDialog
-import com.virgo.duylt.education.study.smart.presentation.components.sessionList
-import com.virgo.duylt.education.study.smart.presentation.components.taskList
+import com.virgo.duylt.education.study.smart.presentation.components.dashboard.sessionList
+import com.virgo.duylt.education.study.smart.presentation.components.dashboard.taskList
 import com.virgo.duylt.education.study.smart.utils.SessionUtils.getDefaultSessions
 import com.virgo.duylt.education.study.smart.utils.SubjectUtils.getSubjectsDefault
 import com.virgo.duylt.education.study.smart.utils.TaskUtils.getTasksDefault
