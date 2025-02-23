@@ -9,6 +9,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.virgo.duylt.education.study.smart.presentation.ui.dashboard.DashboardScreen
 import com.virgo.duylt.education.study.smart.presentation.theme.StudySmartTheme
 import com.virgo.duylt.education.study.smart.presentation.ui.subject.SubjectScreen
+import com.virgo.duylt.education.study.smart.presentation.ui.task.TaskScreen
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -16,7 +17,7 @@ class MainActivity : ComponentActivity() {
         enableEdgeToEdge()
         setContent {
             StudySmartTheme {
-                SubjectScreen()
+                TaskScreen()
             }
         }
     }

@@ -15,7 +15,10 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import com.virgo.duylt.education.study.smart.presentation.theme.StudySmartTheme
+import com.virgo.duylt.education.study.smart.presentation.ui.dashboard.DashboardScreen
 
 @Composable
 fun TaskCheckBox(
@@ -52,4 +55,14 @@ fun TaskCheckBox(
         }
     }
 
+}
+
+@Preview(showBackground = true)
+@Composable
+private fun TaskCheckBoxPreview() {
+    StudySmartTheme {
+        TaskCheckBox {
+
+        }
+    }
 }
